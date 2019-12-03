@@ -1,0 +1,13 @@
+version: '3'
+services:
+  database:
+    image: 'mongo'
+    container_name: 'my-conda-mongo-container'
+    environment:
+      - MONGO_INITDB_DATABASE=my_mongo_db
+      - MONGO_INITDB_ROOT_USERNAME=admin
+      - MONGO_INITDB_ROOT_PASSWORD=password
+    volumes:
+      - ./mongodata/:/data/db
+    ports:
+      - '27017:27017'

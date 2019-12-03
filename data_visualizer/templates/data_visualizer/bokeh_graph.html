@@ -1,0 +1,48 @@
+{% extends "base.html" %}
+
+{% load static %}
+
+{% block styles %}
+    {{ block.super }}
+    <link rel="stylesheet" href="{% static 'css/bokeh_graph.css' %}">
+{% endblock %}
+
+{% block scripts %}
+    {{ block.super }}
+    <script src="{% static 'js/bokeh_graph.js' %}"></script>
+{% endblock %}
+
+{% block title %}DATA VISUALIZER{% endblock %}
+
+{% block content %}
+    <div class="dv-heading col-md-12">
+        <h1 class="bd-title">Bokeh Grapher</h1>
+        <p class="bd-lead">Plots a different bokeh graphs</p>
+    </div>
+
+    <form class="series-code-form">
+        <div class="form-group col-md-6">
+            <label for="series-code">Series</label>
+            <select class="form-control" id="series-code" name="series_code">
+                {% for series in all_series %}
+                    <option value="{{ series.series_code }}">{{ series.series_name }}</option>
+                {% endfor %}
+            </select>
+        </div>
+        <div class="form-group col-md-6">
+            <label for="countries">Countries</label>
+            <select multiple class="form-control" id="countries" name="countries">
+                {% for country in all_countries %}
+                    <option value="{{ country.country_code }}">{{ country.country_name }}</option>
+                {% endfor %}
+            </select>
+        </div>
+        <button type="submit" class="btn btn-primary">Submit</button>
+    </form>
+
+    <div class="dv-graph-container">
+    </div>
+    <div class="dv-loading-spinner spinner-border text-primary" role="status">
+        <span class="sr-only">Loading...</span>
+    </div>
+{% endblock content %}
