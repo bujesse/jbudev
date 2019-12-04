@@ -11,17 +11,31 @@ https://docs.djangoproject.com/en/2.2/ref/settings/
 """
 
 import os
+import json
+from django.core.exceptions import ImproperlyConfigured
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-SETTINGS_PATH = os.path.dirname(os.path.dirname(__file__))
+ROOT_PATH = os.path.dirname(BASE_DIR)
+
+
+with open(os.environ.get('JBUDEV_CONFIG', '.config.json')) as f:
+    configs = json.loads(f.read())
+
+
+def get_env_var(setting):
+    try:
+        return configs[setting]
+    except KeyError:
+        error_msg = f"Need {setting} variable in config"
+        raise ImproperlyConfigured(error_msg)
+
+
+SECRET_KEY = get_env_var("SECRET_KEY")
 
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/2.2/howto/deployment/checklist/
-
-# SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'la+5*%rpp=6)8m+=%^n-j^8+kgh1%jf(gj+hekd$i%40k1mliz'
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
@@ -63,7 +77,7 @@ TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
         'DIRS': [
-            os.path.join(SETTINGS_PATH, 'templates'),
+            os.path.join(ROOT_PATH, 'templates'),
         ],
         'APP_DIRS': True,
         'OPTIONS': {
@@ -84,14 +98,7 @@ WSGI_APPLICATION = 'jbudev.wsgi.application'
 # https://docs.djangoproject.com/en/2.2/ref/settings/#databases
 
 DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'HOST': 'localhost',
-        'PORT': 5432,
-        'NAME': os.environ.get('DB_NAME', 'jbudev'),
-        'USER': os.environ.get('DB_USER', 'postgres'),
-        'PASSWORD': os.environ.get('DB_PASS', 'admin'),
-    }
+    'default': get_env_var('DATABASE')
 }
 
 
@@ -129,5 +136,5 @@ USE_TZ = True
 
 STATIC_URL = '/static/'
 STATICFILES_DIRS = [
-    os.path.join(SETTINGS_PATH, 'static'),
+    os.path.join(ROOT_PATH, 'static'),
 ]

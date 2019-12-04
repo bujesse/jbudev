@@ -1,0 +1,11 @@
+{
+    "SECRET_KEY" : "la+5*%rpp=6)8m+=%^n-j^8+kgh1%jf(gj+hekd$i%40k1mliz",
+    "DATABASE": {
+        "ENGINE": "django.db.backends.postgresql_psycopg2",
+        "HOST": "localhost",
+        "PORT": 5432,
+        "NAME": "jbudev",
+        "USER": "postgres",
+        "PASSWORD": "admin"
+    }
+}
