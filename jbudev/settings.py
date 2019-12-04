@@ -85,13 +85,13 @@ WSGI_APPLICATION = 'jbudev.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'djongo',
-        'NAME': 'my_mongo_db',
-        'HOST': '127.0.0.1',
-        'PORT': 27017,
-        'USER': 'admin',
-        'PASSWORD': 'password'
-}
+        'ENGINE': 'django.db.backends.postgresql_psycopg2',
+        'HOST': 'localhost',
+        'PORT': 5432,
+        'NAME': os.environ.get('DB_NAME', 'jbudev'),
+        'USER': os.environ.get('DB_USER', 'postgres'),
+        'PASSWORD': os.environ.get('DB_PASS', 'admin'),
+    }
 }
 
 

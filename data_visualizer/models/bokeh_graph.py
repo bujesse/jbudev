@@ -1,18 +1,18 @@
-from djongo import models
+from django.db import models
 
 
-class YearlyData(models.Model):
-    year = models.IntegerField()
-    data = models.FloatField()
-
-
-class CountryData(models.Model):
-    series_name = models.CharField(max_length=255)
-    series_code = models.CharField(max_length=255)
+class Country(models.Model):
     country_name = models.CharField(max_length=255)
     country_code = models.CharField(max_length=255)
-    yearly_data = models.ArrayModelField(
-        model_container=YearlyData,
-    )
 
-    objects = models.DjongoManager()
+
+class Series(models.Model):
+    series_name = models.CharField(max_length=255)
+    series_code = models.CharField(max_length=255)
+
+
+class DataPoint(models.Model):
+    year = models.IntegerField(null=True)
+    data = models.FloatField(null=True)
+    country = models.ForeignKey(Country, on_delete=models.CASCADE, null=True)
+    series = models.ForeignKey(Series, on_delete=models.CASCADE, null=True)
