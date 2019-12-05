@@ -2,7 +2,7 @@ asgiref==3.2.3
 bokeh==1.4.0
 certifi==2019.11.28
 dataclasses==0.6
-Django==2.2.5
+Django==2.2.8
 django-extensions==2.2.5
 gunicorn==20.0.4
 Jinja2==2.10.3
