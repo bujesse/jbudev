@@ -7,6 +7,7 @@ django-extensions==2.2.5
 gunicorn==20.0.4
 Jinja2==2.10.3
 MarkupSafe==1.1.1
+mkl-fft==1.0.15
 mkl-random==1.1.0
 mkl-service==2.3.0
 numpy==1.17.4
