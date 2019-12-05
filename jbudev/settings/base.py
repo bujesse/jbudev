@@ -41,6 +41,8 @@ SECRET_KEY = get_env_var("SECRET_KEY")
 DEBUG = True
 
 ALLOWED_HOSTS = [
+    '127.0.0.1',
+    'localhost',
     'jbudev.herokuapp.com'
 ]
 
